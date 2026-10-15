@@ -9,6 +9,8 @@ import {
     actualizarContador
 } from './ui/ui.js';
 
+import { procesarPaises } from './utils/filters.js';
+
 // Estado de la aplicación
 let paises = [];
 
@@ -16,12 +18,50 @@ let paises = [];
 const destinationContainer = document.querySelector('#destinations-container');
 const resultCount = document.querySelector('#results-count');
 const initialMessage = document.querySelector('#initial-message');
+const searchInput = document.querySelector('#search-input');
+const continentFilter = document.querySelector('#continent-filter');
+const sortFilter = document.querySelector('#sort-filter');
+
+function aplicarFiltros() {
+    // OBTENER VALORES
+    
+    // Valor del input
+    const texto = searchInput.value;
+
+    // Valor del continente
+    const continente = continentFilter.value;
+
+    // Valor del criterio de orden
+    const criterioOrden = sortFilter.value;
+
+    // Procesar los datos
+    const resultados = procesarPaises(paises, texto, continente, criterioOrden)
+
+    // RENDERIZAR. Mostrar el código con HTML
+    renderPaises(resultados, destinationContainer);
+
+    // ACTUALIZAR CONTADOR
+    actualizarContador(resultados.length, resultCount)
+}
+
+//Registrar eventos
+function registrarEventos(){
+    //creo mi primer evento
+    searchInput.addEventListener("input", aplicarFiltros);
+
+    //Evento del continente
+    continentFilter.addEventListener("change", aplicarFiltros);
+
+    //Aqui cambia de az y za
+    sortFilter.addEventListener("change", aplicarFiltros);
+}
+
 
 //inicialización de la aplicación 
 async function init(){
     console.log("Explorador de viajes iniciado");
 
-    //Mostrar resultados de la carga
+    //Mostrar resultados de la carga 
     mostrarCargando(destinationContainer);
 
     resultCount.textContent = '1 destino';
@@ -56,11 +96,10 @@ async function init(){
         return;
     }
 
-    //Renderizar los países obtenidos en el contenedor de destinos
-    renderPaises(paises, destinationContainer);
+    aplicarFiltros();
 
-    //Actualizar el contador de resultados para mostrar la cantidad de destinos obtenidos
-    actualizarContador(paises.length, resultCount);
+    //registrar eventos
+    registrarEventos();
 }
 
 //Iniciar la aplicación
