@@ -47,7 +47,17 @@ El proyecto permitirá:
 - módulos JavaScript
 - separación de responsabilidades
 
-
+# filters.js
+- filter()
+- sort()
+- includes()
+- toLowerCase()
+- localeCompare()
+- spread operator [...]
+- eventos input
+- eventos change
+- estado de la aplicación
+- funciones reutilizables
 
 ## Arquitectura
 
@@ -61,4 +71,4 @@ Actualmente la aplicación separa:
 
 ## Versión actual
 
-v0.4.0 - Renderizado dinámico de destinos obtenidos desde REST Countries.
+v0.5.0 - Renderizado dinámico de destinos obtenidos desde REST Countries.
