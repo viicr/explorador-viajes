@@ -48,6 +48,48 @@ export function mostrarError(contenedor) {
 }
 
 
+//Mostrar favoritos vacíos
+export function mostrarFavoritosVacios(contenedor){
+
+    contenedor.innerHTML = `
+        <div
+            class="
+                col-span-full
+                bg-white
+                border
+                border-dashed
+                border-slate-300
+                rounded-xl
+                p-12
+                text-center
+            "
+        >
+
+            <div class="text-5xl mb-4">
+                ♡
+            </div>
+
+            <h3
+                class="
+                    text-xl
+                    font-semibold
+                    text-slate-800
+                    mb-2
+                "
+            >
+                No tienes destinos favoritos
+            </h3>
+
+            <p class="text-slate-500">
+                Explora los destinos y guarda
+                los que más te interesen.
+            </p>
+
+        </div>
+    `;
+}
+
+
 // Actualizar el contador de resultados
 export function actualizarContador(total, elementoContador) {
 
@@ -57,7 +99,11 @@ export function actualizarContador(total, elementoContador) {
 
 
 // Renderizar las tarjetas de los países
-export function renderPaises(paises, contenedor) {
+export function renderPaises(
+    paises,
+    contenedor,
+    modo = "explorar"
+) {
 
     if (paises.length === 0) {
 
@@ -102,6 +148,53 @@ export function renderPaises(paises, contenedor) {
 
         // Formatear población
         const poblacionFormateada = poblacion.toLocaleString('es-MX');
+
+
+        //Botón según el modo, explorar o favoritos
+        const botonFavorito =
+            modo === "favoritos"
+                ? `
+                    <button
+                        type="button"
+                        data-action="remove-favorite"
+                        data-country-code="${codigo}"
+                        class="
+                            px-4
+                            py-2
+                            border
+                            border-red-300
+                            text-red-600
+                            rounded-lg
+                            cursor-pointer
+                            hover:bg-red-50
+                            transition
+                        "
+                    >
+                        ♥ Eliminar
+                    </button>
+                `
+                : `
+                    <button
+                        type="button"
+                        data-action="favorite"
+                        data-country-code="${codigo}"
+                        aria-label="Agregar ${nombre} a favoritos"
+                        class="
+                            px-4
+                            py-2
+                            border
+                            border-slate-300
+                            text-slate-600
+                            rounded-lg
+                            cursor-pointer
+                            hover:bg-slate-100
+                            transition
+                        "
+                    >
+                        ♡
+                    </button>
+                `;
+
 
         return /*html*/ `
             <article class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
@@ -165,15 +258,7 @@ export function renderPaises(paises, contenedor) {
                             Ver más
                         </button>
 
-                        <button
-                            type="button"
-                            data-action="favorite"
-                            data-country-code="${codigo}"
-                            aria-label="Agregar ${nombre} a favoritos"
-                            class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg cursor-pointer hover:bg-slate-100 transition"
-                        >
-                            ♡
-                        </button>
+                        ${botonFavorito}
 
                     </div>
 
@@ -407,4 +492,5 @@ export function cerrarDetalle(modal, modalContent) {
     document.body.classList.remove("overflow-hidden");
 
 }
+
 

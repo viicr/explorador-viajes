@@ -59,6 +59,18 @@ El proyecto permitirá:
 - estado de la aplicación
 - funciones reutilizables
 
+# favoritesServices.js
+- LocalStorage
+- JSON.stringify()
+- JSON.parse()
+- find()
+- some()
+- filter()
+- estado de la aplicación
+- delegación de eventos
+- renderizado condicional
+- SweetAlert2
+
 ## Arquitectura
 
 La aplicación utiliza una sola página HTML y divide progresivamente la lógica JavaScript en módulos según su responsabilidad.
@@ -71,4 +83,4 @@ Actualmente la aplicación separa:
 
 ## Versión actual
 
-v0.5.0 - Renderizado dinámico de destinos obtenidos desde REST Countries.
+v0.6.0 - Renderizado dinámico de destinos obtenidos desde REST Countries.
